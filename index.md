@@ -1,4 +1,4 @@
-UNDER CONSTRUCTION
+SITE UNDER CONSTRUCTION
 -------------------------------------------------------------------------------
 
 docopt
@@ -56,11 +56,40 @@ help-message, which is shown to a user when the program is invoked with
 Usage patterns
 -------------------------------------------------------------------------------
 
+Text occuring between keyword `usage:` (case-*in*sensitive) and a *visibly*
+empty line is interpreted as list of usage patterns.  First word after
+`usage:` is interpreted as program's name.  Here is a minimum example for
+program that takes no command-line arguments:
+
+    Usage: the_program
+
 ### -o --option
-### <argument> ARGUMENT
+
+Words starting with one or two underscores (`-`, `--`) are interpreted as
+short (one-letter) or long options, respectively.
+
+- Short options can be "stacked" meaning that `-abc` is equivalent to
+  `-a -b -c`.
+- Long options can have arguments specified after space or equal `=` sign:<br>
+  `--input=ARG` is equivalent to `--input ARG`.
+- Short options can have arguments specified after *optional* space:<br>
+  `-f FILE` is equivalent to `-fFILE`.
+
+
+### &lt;argument> ARGUMENT
+
+Words starting with "`<`", ending with "`>`" or upper-case words are
+interpreted as positional arguments.
+
 ### command
 
+All other words (that do *not* follow the above conventions of `--options` or
+`<arguments>`) are interpreted as (sub)commands.
+
 ### [optional elements]
+
+Elements (options, arguments, commands)
+
 ### (required elements)
 ### element|another
 ### element...

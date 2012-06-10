@@ -10,7 +10,7 @@
     ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
     [Math.floor(Math.random() * 7)];">
 
-    <h2>UNDER CONSTRUCTION</h2>
+    <h2>SITE UNDER CONSTRUCTION</h2>
 
 <h1>docopt</h1>
 
@@ -67,11 +67,37 @@ help-message, which is shown to a user when the program is invoked with
 
 <h2>Usage patterns</h2>
 
+<p>Text occuring between keyword <code>usage:</code> (case-<em>in</em>sensitive) and a <em>visibly</em>
+empty line is interpreted as list of usage patterns.  First word after
+<code>usage:</code> is interpreted as program's name.  Here is a minimum example for
+program that takes no command-line arguments:</p>
+
+<pre><code>Usage: the_program
+</code></pre>
+
 <h3>-o --option</h3>
 
-<h3><argument> ARGUMENT</h3>
+<p>Words starting with one or two underscores (<code>-</code>, <code>--</code>) are interpreted as
+short (one-letter) or long options, respectively.</p>
+
+<ul>
+<li>Short options can be "stacked" meaning that <code>-abc</code> is equivalent to
+<code>-a -b -c</code>.</li>
+<li>Long options can have arguments specified after space or equal <code>=</code> sign:<br>
+<code>--input=ARG</code> is equivalent to <code>--input ARG</code>.</li>
+<li>Short options can have arguments specified after <em>optional</em> space:<br>
+<code>-f FILE</code> is equivalent to <code>-fFILE</code>.</li>
+</ul>
+
+<h3>&lt;argument> ARGUMENT</h3>
+
+<p>Words starting with "<code>&lt;</code>", ending with "<code>&gt;</code>" or upper-case words are
+interpreted as positional arguments.</p>
 
 <h3>command</h3>
+
+<p>All other words (that do <em>not</em> follow the above conventions of <code>--options</code> or
+<code>&lt;arguments&gt;</code>) are interpreted as (sub)commands.</p>
 
 <h3>[optional elements]</h3>
 
