@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>docopt—language for description of command-line interfaces</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="document.getElementsByTagName('h1')[0].className =
+    ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
+    [Math.floor(Math.random() * 7)];">
+
+    <h2>UNDER CONSTRUCTION</h2>
+
+<h1>docopt</h1>
+
+<h2>Command-line interface description language</h2>
+
+<p><code>docopt</code> helps you:</p>
+
+<ul>
+<li>define interface for your command-line app, and</li>
+<li>automatically generate parser for it.</li>
+</ul>
+
+<p><code>docopt</code> is based on conventions that are used for decades in help-messages and
+man-pages for program interface description.  Interface description
+in <code>docopt</code> <em>is</em> such a help-message, but formalized.  Here is an example:</p>
+
+<pre><code>Naval Fate.
+
+Usage:
+  naval_fate ship new &lt;name&gt;...
+  naval_fate ship [&lt;name&gt;] move &lt;x&gt; &lt;y&gt; [--speed=&lt;kn&gt;]
+  naval_fate ship shoot &lt;x&gt; &lt;y&gt;
+  naval_fate mine (set|remove) &lt;x&gt; &lt;y&gt; [--moored|--drifting]
+  naval_fate -h | --help
+  naval_fate --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  --speed=&lt;kn&gt;  Speed in knots [default: 10].
+  --moored      Moored (anchored) mine.
+  --drifting    Drifting mine.
+</code></pre>
+
+<p>The example describes interface of executable <code>naval_fate</code>, which can be
+invoked with different combinations of <em>commands</em> (<code>ship</code>, <code>new</code>, <code>move</code>,
+etc.), <em>options</em> (<code>-h</code>, <code>--help</code>, <code>--speed=&lt;kn&gt;</code>, etc.)  and positional
+arguments (<code>&lt;name&gt;</code>, <code>&lt;x&gt;</code>, <code>&lt;y&gt;</code>).</p>
+
+<p>Example uses brackets <code>[ ]</code>, parens <code>( )</code>, pipes <code>|</code> and ellipsis <code>...</code> to
+describe <em>optional</em>, <em>required</em>, <em>mutually exclusive</em>, and <em>repeating</em>
+elements.  Together, these elements form valid <em>usage patterns</em>, each starting
+with program's name <code>naval_fate</code>.</p>
+
+<p>Below the usage patterns, there is a list with option descriptions.
+It describes whether an option has short/long forms (<code>-h</code>, <code>--help</code>), whether
+an option has an argument (<code>--speed=&lt;kn&gt;</code>), and whether that argument has a
+default value (<code>[default: 10]</code>).</p>
+
+<p><code>docopt</code> implementation will extract all that information and generate a
+command-line arguments parser, with text of the example above being the
+help-message, which is shown to a user when the program is invoked with
+<code>-h</code> or <code>--help</code> options.</p>
+
+<h2>Usage patterns</h2>
+
+<h3>-o --option</h3>
+
+<h3><argument> ARGUMENT</h3>
+
+<h3>command</h3>
+
+<h3>[optional elements]</h3>
+
+<h3>(required elements)</h3>
+
+<h3>element|another</h3>
+
+<h3>element...</h3>
+
+<h3>[options]</h3>
+
+<h3>[--]</h3>
+
+<h2>Option descriptions</h2>
+
+<h2>Implementations</h2>
+
+
+    <script>
+        var _gaq=[['_setAccount','UA-15242420-3'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+</body>
+</html>
