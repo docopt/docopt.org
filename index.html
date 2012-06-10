@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="document.getElementsByTagName('h1')[0].className =
-    ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
-    [Math.floor(Math.random() * 7)];">
+<body>
+    <h1>docopt</h1>
+    <script>
+        document.getElementsByTagName('h1')[0].className =
+        ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
+        [Math.floor(Math.random() * 7)];
+    </script>
 
-    <h2>SITE UNDER CONSTRUCTION</h2>
-
-<h1>docopt</h1>
-
-<h2>Command-line interface description language</h2>
+    <h2>Command-line interface description language</h2>
 
 <p><code>docopt</code> helps you:</p>
 
@@ -50,7 +50,8 @@ invoked with different combinations of <em>commands</em> (<code>ship</code>, <co
 etc.), <em>options</em> (<code>-h</code>, <code>--help</code>, <code>--speed=&lt;kn&gt;</code>, etc.)  and positional
 arguments (<code>&lt;name&gt;</code>, <code>&lt;x&gt;</code>, <code>&lt;y&gt;</code>).</p>
 
-<p>Example uses brackets <code>[ ]</code>, parens <code>( )</code>, pipes <code>|</code> and ellipsis <code>...</code> to
+<p>Example uses brackets "<code>[ ]</code>", parens "<code>( )</code>", pipes "<code>|</code>" and ellipsis
+"<code>...</code>" to
 describe <em>optional</em>, <em>required</em>, <em>mutually exclusive</em>, and <em>repeating</em>
 elements.  Together, these elements form valid <em>usage patterns</em>, each starting
 with program's name <code>naval_fate</code>.</p>
@@ -75,9 +76,22 @@ program that takes no command-line arguments:</p>
 <pre><code>Usage: the_program
 </code></pre>
 
+<p>Program can have several patterns listed with various elements used to
+describe the pattern:</p>
+
+<pre><code>Usage:
+  the_program command --option &lt;argument&gt;
+  the_program [&lt;optional-argument&gt;]
+  the_program --another-option=&lt;with-argument&gt;
+  the_program (--either-that-option | &lt;or-this-argument&gt;)
+  the_program &lt;repeating-argument&gt; &lt;repeating-argument&gt;...
+</code></pre>
+
+<p>Each of the elements and syntactic constructs is described below.</p>
+
 <h3>-o --option</h3>
 
-<p>Words starting with one or two underscores (<code>-</code>, <code>--</code>) are interpreted as
+<p>Words starting with one or two dashes ("<code>-</code>", "<code>--</code>") are interpreted as
 short (one-letter) or long options, respectively.</p>
 
 <ul>
@@ -101,19 +115,150 @@ interpreted as positional arguments.</p>
 
 <h3>[optional elements]</h3>
 
+<p>Elements (options, arguments, commands) enclosed with square brackets "<code>[ ]</code>"
+are marked to be <em>optional</em>.  It does not matter if elements are enclosed
+in same or different brackets, for example:</p>
+
+<pre><code>Usage: the_program [command --option &lt;argument&gt;]
+</code></pre>
+
+<p>is equivalent to:</p>
+
+<pre><code>Usage: the_program [command] [--option] [&lt;argument&gt;]
+</code></pre>
+
 <h3>(required elements)</h3>
+
+<p><em>All elements are required by default</em>, if not included in brackets "<code>[ ]</code>".
+However, sometimes it is necessary to mark elements as required explicitly
+with parens "<code>( )</code>".
+For example, when you need to group mutually-exclussive elements (see next
+section for details on them):</p>
+
+<pre><code>Usage: the_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
+</code></pre>
+
+<p>Another use-case, is when you need to specify that <em>if one element is present,
+then another one is required</em>, which you can achieve as:</p>
+
+<pre><code>Usage: the_program [(&lt;one-argument&gt; &lt;another-argument&gt;)]
+</code></pre>
+
+<p>In this case, a valid program invocation could be with either no arguments,
+or with 2 arguments.</p>
 
 <h3>element|another</h3>
 
+<p>Mutually exclusive elements can be separated with pipe "<code>|</code>" as follows:</p>
+
+<pre><code>Usage: the_program go (--up | --down | --left | --right)
+</code></pre>
+
+<p>Use parens "<code>( )</code>" to group elements when <em>one</em> of the mutually exclussive
+cases is required.  Use brackets "<code>[ ]</code>" to group elements when <em>none</em> of the
+mutually exclussive cases is required:</p>
+
+<pre><code>Usage: the_program go [--up | --down | --left | --right]
+</code></pre>
+
+<p>Note, that specifying several patterns works exactly like pipe "<code>|</code>", that is:</p>
+
+<pre><code>Usage: the_program run [--fast]
+       the_program jump [--high]
+</code></pre>
+
+<p>is equivalent to:</p>
+
+<pre><code>Usage: the_program (run [--fast] | jump [--high])
+</code></pre>
+
 <h3>element...</h3>
+
+<p>Use ellipsis "<code>...</code>" to specify that argument (or group of arguments)
+to the left could be repeated 1 or more times:</p>
+
+<pre><code>Usage: the_program open &lt;file&gt;...
+       the_program move (&lt;from&gt; &lt;to&gt;)...
+</code></pre>
+
+<p>You can flexibly specify number of arguments that are required.
+Here are 3 (redundant) ways of requiring zero or more arguments:</p>
+
+<pre><code>Usage: the_program [&lt;file&gt;...]
+       the_program [&lt;file&gt;]...
+       the_program [&lt;file&gt; [&lt;file&gt; ...]]
+</code></pre>
+
+<p>One or more arguments:</p>
+
+<pre><code>Usage: the_program &lt;file&gt;...
+</code></pre>
+
+<p>Two or more arguments (and so on):</p>
+
+<pre><code>Usage: the_program &lt;file&gt; &lt;file&gt;...
+</code></pre>
 
 <h3>[options]</h3>
 
+<p>"<code>[options]</code>" is a shortcut that allows to avoid listing all options
+in a pattern.  For example:</p>
+
+<pre><code>Usage: the_program [options] &lt;path&gt;
+
+--all             List everything.
+--long            Long output.
+--human-readable  Display in human-readable format.
+</code></pre>
+
+<p>is equivalent to:</p>
+
+<pre><code>Usage: the_program [--all --long --human-readable] &lt;path&gt;
+
+--all             List everything.
+--long            Long output.
+--human-readable  Display in human-readable format.
+</code></pre>
+
+<p>This can be usefull, if you have many options, and all of them are applicable
+to one of patterns. Alternatively, if you have both short and long
+versions of options (specified in option description part),
+you can list either of them in a pattern:</p>
+
+<pre><code>Usage: the_program [-alh] &lt;path&gt;
+
+-a, --all             List everything.
+-l, --long            Long output.
+-h, --human-readable  Display in human-readable format.
+</code></pre>
+
 <h3>[--]</h3>
+
+<p>Double dash "<code>--</code>", when not part of an option, is used (by convention)
+to separate options and positional arguments, to handle cases when
+e.g. file names could be mistaken for options.  <code>docopt</code>-based command-line
+arguments parsers support this convention.  Thus you are recommended
+to include "<code>[--]</code>" into your patterns before positional arguments in order
+to inform your users that it is supported.  For example:</p>
+
+<pre><code>Usage: the_program [options] [--] &lt;file&gt;...
+</code></pre>
 
 <h2>Option descriptions</h2>
 
 <h2>Implementations</h2>
+
+<p><code>docopt</code>-based command-line arguments parsers are developed on
+<a href="https://github.com/docopt">github</a>:</p>
+
+<ul>
+<li>Python (reference) implementation.</li>
+<li>Ruby implementation.</li>
+<li>CoffeeScript/JavaScript implementation.</li>
+<li>Lua implementation.</li>
+</ul>
+
+<p><br></p>
 
 
     <script>

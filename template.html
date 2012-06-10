@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="document.getElementsByTagName('h1')[0].className =
-    ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
-    [Math.floor(Math.random() * 7)];">
+<body>
+    <h1>docopt</h1>
+    <script>
+        document.getElementsByTagName('h1')[0].className =
+        ['dashdash', 'ellipsis', 'brackets', 'angular', 'parens', 'upper', '']
+        [Math.floor(Math.random() * 7)];
+    </script>
 
     {body}
 
