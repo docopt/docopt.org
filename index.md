@@ -39,8 +39,8 @@ describe *optional*, *required*, *mutually exclusive*, and *repeating*
 elements.  Together, these elements form valid *usage patterns*, each starting
 with program's name `naval_fate`.
 
-Below the usage patterns, there is a list with option descriptions.
-It describes whether an option has short/long forms (`-h`, `--help`), whether
+Below the usage patterns, there is a list of options with descriptions.
+They describe whether an option has short/long forms (`-h`, `--help`), whether
 an option has an argument (`--speed=<kn>`), and whether that argument has a
 default value (`[default: 10]`).
 
@@ -70,24 +70,40 @@ describe the pattern:
       the_program <repeating-argument> <repeating-argument>...
 
 Each of the elements and syntactic constructs is described below.
-
-### -o --option
-
-Words starting with one or two dashes ("`-`", "`--`") are interpreted as
-short (one-letter) or long options, respectively.
-
-- Short options can be "stacked" meaning that `-abc` is equivalent to
-  `-a -b -c`.
-- Long options can have arguments specified after space or equal `=` sign:<br>
-  `--input=ARG` is equivalent to `--input ARG`.
-- Short options can have arguments specified after *optional* space:<br>
-  `-f FILE` is equivalent to `-fFILE`.
-
+There, the word "*word*" describes a sequence of characters delimited
+by either whitespace, one of "`[]()|`" characters, or "`...`".
 
 ### &lt;argument> ARGUMENT
 
 Words starting with "`<`", ending with "`>`" or upper-case words are
 interpreted as positional arguments.
+
+    Usage: the_program <host> <port>
+
+### -o --option
+
+Words starting with one or two dashes (with exception of "`-`", "`--`"
+by themselves) are interpreted as short (one-letter) or long options,
+respectively.
+
+- Short options can be "stacked" meaning that `-abc` is equivalent to
+  `-a -b -c`.
+- Long options can have arguments specified after space or equal "`=`" sign:<br>
+  `--input=ARG` is equivalent to `--input ARG`.
+- Short options can have arguments specified after *optional* space:<br>
+  `-f FILE` is equivalent to `-fFILE`.
+
+Note, writing `--input ARG` (opposed to `--input=ARG`) is ambiguous, meaning
+it is not possibe to tell whether `ARG` is option's argument or positional
+argument.  In usage patterns this will be interpreted as option with argument
+*only* if [option's description](#) for that option is provided.  Otherwise
+it will be interpreted as separate option and positional argument.
+
+Same ambiguity is with `-f FILE` and `-fFILE` notation. Although in the latter
+case it is not possible to tell whether it is a number of stacked short
+options, or an option with argument.  These notations will be interpreted as
+option with argument *only* if option's description is provided.
+
 
 ### command
 
@@ -171,7 +187,7 @@ Two or more arguments (and so on):
 ### [options]
 
 "`[options]`" is a shortcut that allows to avoid listing all options
-in a pattern.  For example:
+(from list of options with descriptions) in a pattern.  For example:
 
     Usage: the_program [options] <path>
 
@@ -198,19 +214,76 @@ you can list either of them in a pattern:
     -l, --long            Long output.
     -h, --human-readable  Display in human-readable format.
 
+More details on how to write options' descriptions will follow below.
+
 ### [--]
 
-Double dash "`--`", when not part of an option, is used (by convention)
-to separate options and positional arguments, to handle cases when
-e.g. file names could be mistaken for options.  `docopt`-based command-line
-arguments parsers support this convention.  Thus you are recommended
-to include "`[--]`" into your patterns before positional arguments in order
-to inform your users that it is supported.  For example:
+Double dash "`--`", when not part of an option, is often used by convention
+to separate options and positional arguments, in order to handle cases when
+e.g. file names could be mistaken for options.  In order to support this
+convention, add "`[--]`" into your patterns before positional arguments.
 
     Usage: the_program [options] [--] <file>...
 
+Apart from this special meaning, "`--`" is just a normal command, so you can
+apply any previously-described operations, for example make it required
+(by dropping brackets "`[ ]`")
+
+### [-]
+
+Single dash "`-`", when not part of an option, is often used by convention
+to signify that a program should process `stdin`, as opposed to a file.
+If you want to follow this convention add "`[-]`" to your pattern.
+"`-`" by itself is just a normal command, which you can use with any meaning.
+
 Option descriptions
 -------------------------------------------------------------------------------
+
+Option descriptions consist of a list of options that you put below your
+ussage-patterns.  It is optional to specify them if there is no ambiguity
+in usage-patterns (described in [`--option` section](#)).
+
+Option's description allows to specify:
+
+- that a short and a long options are synonymous,
+- that an option has an argument,
+- default value for option's argument.
+
+The rules are as follows:
+
+Every line that starts with "`-`" or "`--`" (not counting spaces)
+is treated as an option description, e.g.:
+
+    Options:
+      --verbose   # GOOD
+      -o FILE     # GOOD
+    Other: --bad  # BAD, line does not start with dash "-"
+
+To specify that option has an argument, put a word describing that
+argument after space (or equals "`=`" sign) as shown below. Follow
+either `<angular-brackets>` or `UPPER-CASE` convention for options' arguments.
+You can use comma if you want to separate options. In the example below, both
+lines are valid, however you are recommended to stick to a single style.
+
+    -o FILE --output=FILE       # without comma, with "=" sign
+    -i <file>, --input <file>   # with comma, wihtout "=" sing
+
+Use two spaces to separate options with their informal description.
+
+    --verbose MORE text.    # BAD, will be treated as if verbose
+                            # option had an argument MORE, so use
+                            # 2 spaces instead
+    -q        Quit.         # GOOD
+    -o FILE   Output file.  # GOOD
+    --stdout  Use stdout.   # GOOD, 2 spaces
+
+If you want to set a default value for an option with an argument, put it
+into the option-description, in form `[default: <the-default-value>]`.
+
+    --coefficient=K  The K coefficient [default: 2.95]
+    --output=FILE    Output file [default: test.txt]
+    --directory=DIR  Some directory [default: ./]
+
 
 Implementations
 -------------------------------------------------------------------------------

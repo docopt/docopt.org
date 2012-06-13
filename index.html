@@ -56,8 +56,8 @@ describe <em>optional</em>, <em>required</em>, <em>mutually exclusive</em>, and 
 elements.  Together, these elements form valid <em>usage patterns</em>, each starting
 with program's name <code>naval_fate</code>.</p>
 
-<p>Below the usage patterns, there is a list with option descriptions.
-It describes whether an option has short/long forms (<code>-h</code>, <code>--help</code>), whether
+<p>Below the usage patterns, there is a list of options with descriptions.
+They describe whether an option has short/long forms (<code>-h</code>, <code>--help</code>), whether
 an option has an argument (<code>--speed=&lt;kn&gt;</code>), and whether that argument has a
 default value (<code>[default: 10]</code>).</p>
 
@@ -87,26 +87,43 @@ describe the pattern:</p>
   the_program &lt;repeating-argument&gt; &lt;repeating-argument&gt;...
 </code></pre>
 
-<p>Each of the elements and syntactic constructs is described below.</p>
-
-<h3>-o --option</h3>
-
-<p>Words starting with one or two dashes ("<code>-</code>", "<code>--</code>") are interpreted as
-short (one-letter) or long options, respectively.</p>
-
-<ul>
-<li>Short options can be "stacked" meaning that <code>-abc</code> is equivalent to
-<code>-a -b -c</code>.</li>
-<li>Long options can have arguments specified after space or equal <code>=</code> sign:<br>
-<code>--input=ARG</code> is equivalent to <code>--input ARG</code>.</li>
-<li>Short options can have arguments specified after <em>optional</em> space:<br>
-<code>-f FILE</code> is equivalent to <code>-fFILE</code>.</li>
-</ul>
+<p>Each of the elements and syntactic constructs is described below.
+There, the word "<em>word</em>" describes a sequence of characters delimited
+by either whitespace, one of "<code>[]()|</code>" characters, or "<code>...</code>".</p>
 
 <h3>&lt;argument> ARGUMENT</h3>
 
 <p>Words starting with "<code>&lt;</code>", ending with "<code>&gt;</code>" or upper-case words are
 interpreted as positional arguments.</p>
+
+<pre><code>Usage: the_program &lt;host&gt; &lt;port&gt;
+</code></pre>
+
+<h3>-o --option</h3>
+
+<p>Words starting with one or two dashes (with exception of "<code>-</code>", "<code>--</code>"
+by themselves) are interpreted as short (one-letter) or long options,
+respectively.</p>
+
+<ul>
+<li>Short options can be "stacked" meaning that <code>-abc</code> is equivalent to
+<code>-a -b -c</code>.</li>
+<li>Long options can have arguments specified after space or equal "<code>=</code>" sign:<br>
+<code>--input=ARG</code> is equivalent to <code>--input ARG</code>.</li>
+<li>Short options can have arguments specified after <em>optional</em> space:<br>
+<code>-f FILE</code> is equivalent to <code>-fFILE</code>.</li>
+</ul>
+
+<p>Note, writing <code>--input ARG</code> (opposed to <code>--input=ARG</code>) is ambiguous, meaning
+it is not possibe to tell whether <code>ARG</code> is option's argument or positional
+argument.  In usage patterns this will be interpreted as option with argument
+<em>only</em> if <a href="#">option's description</a> for that option is provided.  Otherwise
+it will be interpreted as separate option and positional argument.</p>
+
+<p>Same ambiguity is with <code>-f FILE</code> and <code>-fFILE</code> notation. Although in the latter
+case it is not possible to tell whether it is a number of stacked short
+options, or an option with argument.  These notations will be interpreted as
+option with argument <em>only</em> if option's description is provided.</p>
 
 <h3>command</h3>
 
@@ -202,7 +219,7 @@ Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 <h3>[options]</h3>
 
 <p>"<code>[options]</code>" is a shortcut that allows to avoid listing all options
-in a pattern.  For example:</p>
+(from list of options with descriptions) in a pattern.  For example:</p>
 
 <pre><code>Usage: the_program [options] &lt;path&gt;
 
@@ -232,19 +249,81 @@ you can list either of them in a pattern:</p>
 -h, --human-readable  Display in human-readable format.
 </code></pre>
 
+<p>More details on how to write options' descriptions will follow below.</p>
+
 <h3>[--]</h3>
 
-<p>Double dash "<code>--</code>", when not part of an option, is used (by convention)
-to separate options and positional arguments, to handle cases when
-e.g. file names could be mistaken for options.  <code>docopt</code>-based command-line
-arguments parsers support this convention.  Thus you are recommended
-to include "<code>[--]</code>" into your patterns before positional arguments in order
-to inform your users that it is supported.  For example:</p>
+<p>Double dash "<code>--</code>", when not part of an option, is often used by convention
+to separate options and positional arguments, in order to handle cases when
+e.g. file names could be mistaken for options.  In order to support this
+convention, add "<code>[--]</code>" into your patterns before positional arguments.</p>
 
 <pre><code>Usage: the_program [options] [--] &lt;file&gt;...
 </code></pre>
 
+<p>Apart from this special meaning, "<code>--</code>" is just a normal command, so you can
+apply any previously-described operations, for example make it required
+(by dropping brackets "<code>[ ]</code>")</p>
+
+<h3>[-]</h3>
+
+<p>Single dash "<code>-</code>", when not part of an option, is often used by convention
+to signify that a program should process <code>stdin</code>, as opposed to a file.
+If you want to follow this convention add "<code>[-]</code>" to your pattern.
+"<code>-</code>" by itself is just a normal command, which you can use with any meaning.</p>
+
 <h2>Option descriptions</h2>
+
+<p>Option descriptions consist of a list of options that you put below your
+ussage-patterns.  It is optional to specify them if there is no ambiguity
+in usage-patterns (described in <a href="#"><code>--option</code> section</a>).</p>
+
+<p>Option's description allows to specify:</p>
+
+<ul>
+<li>that a short and a long options are synonymous,</li>
+<li>that an option has an argument,</li>
+<li>default value for option's argument.</li>
+</ul>
+
+<p>The rules are as follows:</p>
+
+<p>Every line that starts with "<code>-</code>" or "<code>--</code>" (not counting spaces)
+is treated as an option description, e.g.:</p>
+
+<pre><code>Options:
+  --verbose   # GOOD
+  -o FILE     # GOOD
+Other: --bad  # BAD, line does not start with dash "-"
+</code></pre>
+
+<p>To specify that option has an argument, put a word describing that
+argument after space (or equals "<code>=</code>" sign) as shown below. Follow
+either <code>&lt;angular-brackets&gt;</code> or <code>UPPER-CASE</code> convention for options' arguments.
+You can use comma if you want to separate options. In the example below, both
+lines are valid, however you are recommended to stick to a single style.</p>
+
+<pre><code>-o FILE --output=FILE       # without comma, with "=" sign
+-i &lt;file&gt;, --input &lt;file&gt;   # with comma, wihtout "=" sing
+</code></pre>
+
+<p>Use two spaces to separate options with their informal description.</p>
+
+<pre><code>--verbose MORE text.    # BAD, will be treated as if verbose
+                        # option had an argument MORE, so use
+                        # 2 spaces instead
+-q        Quit.         # GOOD
+-o FILE   Output file.  # GOOD
+--stdout  Use stdout.   # GOOD, 2 spaces
+</code></pre>
+
+<p>If you want to set a default value for an option with an argument, put it
+into the option-description, in form <code>[default: &lt;my-default-value&gt;]</code>.</p>
+
+<pre><code>--coefficient=K  The K coefficient [default: 2.95]
+--output=FILE    Output file [default: test.txt]
+--directory=DIR  Some directory [default: ./]
+</code></pre>
 
 <h2>Implementations</h2>
 
