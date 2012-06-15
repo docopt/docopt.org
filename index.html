@@ -23,9 +23,9 @@
 <li>automatically generate parser for it.</li>
 </ul>
 
-<p><code>docopt</code> is based on conventions that are used for decades in help-messages and
-man-pages for program interface description.  Interface description
-in <code>docopt</code> <em>is</em> such a help-message, but formalized.  Here is an example:</p>
+<p><code>docopt</code> is based on conventions that are used for decades in help messages and
+man pages for program interface description.  Interface description
+in <code>docopt</code> <em>is</em> such a help message, but formalized.  Here is an example:</p>
 
 <pre><code>Naval Fate.
 
@@ -63,7 +63,7 @@ default value (<code>[default: 10]</code>).</p>
 
 <p><code>docopt</code> implementation will extract all that information and generate a
 command-line arguments parser, with text of the example above being the
-help-message, which is shown to a user when the program is invoked with
+help message, which is shown to a user when the program is invoked with
 <code>-h</code> or <code>--help</code> options.</p>
 
 <h2>Usage patterns</h2>
@@ -87,8 +87,8 @@ describe the pattern:</p>
   the_program &lt;repeating-argument&gt; &lt;repeating-argument&gt;...
 </code></pre>
 
-<p>Each of the elements and syntactic constructs is described below.
-There, the word "<em>word</em>" describes a sequence of characters delimited
+<p>Each of the elements and constructs is described below.
+We will use the word "<em>word</em>" to describe a sequence of characters delimited
 by either whitespace, one of "<code>[]()|</code>" characters, or "<code>...</code>".</p>
 
 <h3>&lt;argument> ARGUMENT</h3>
@@ -117,8 +117,9 @@ respectively.</p>
 <p>Note, writing <code>--input ARG</code> (opposed to <code>--input=ARG</code>) is ambiguous, meaning
 it is not possibe to tell whether <code>ARG</code> is option's argument or positional
 argument.  In usage patterns this will be interpreted as option with argument
-<em>only</em> if <a href="#">option's description</a> for that option is provided.  Otherwise
-it will be interpreted as separate option and positional argument.</p>
+<em>only</em> if option's description (covered below) for that option is
+provided.  Otherwise it will be interpreted as separate option and
+positional argument.</p>
 
 <p>Same ambiguity is with <code>-f FILE</code> and <code>-fFILE</code> notation. Although in the latter
 case it is not possible to tell whether it is a number of stacked short
@@ -127,8 +128,8 @@ option with argument <em>only</em> if option's description is provided.</p>
 
 <h3>command</h3>
 
-<p>All other words (that do <em>not</em> follow the above conventions of <code>--options</code> or
-<code>&lt;arguments&gt;</code>) are interpreted as (sub)commands.</p>
+<p>All other words that do <em>not</em> follow the above conventions of <code>--options</code> or
+<code>&lt;arguments&gt;</code> are interpreted as (sub)commands.</p>
 
 <h3>[optional elements]</h3>
 
@@ -150,7 +151,7 @@ in same or different brackets, for example:</p>
 However, sometimes it is necessary to mark elements as required explicitly
 with parens "<code>( )</code>".
 For example, when you need to group mutually-exclussive elements (see next
-section for details on them):</p>
+section):</p>
 
 <pre><code>Usage: the_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
 </code></pre>
@@ -192,7 +193,7 @@ mutually exclussive cases is required:</p>
 <h3>element...</h3>
 
 <p>Use ellipsis "<code>...</code>" to specify that argument (or group of arguments)
-to the left could be repeated 1 or more times:</p>
+to the left could be repeated one or more times:</p>
 
 <pre><code>Usage: the_program open &lt;file&gt;...
        the_program move (&lt;from&gt; &lt;to&gt;)...
@@ -262,7 +263,7 @@ convention, add "<code>[--]</code>" into your patterns before positional argumen
 </code></pre>
 
 <p>Apart from this special meaning, "<code>--</code>" is just a normal command, so you can
-apply any previously-described operations, for example make it required
+apply any previously-described operations, for example, make it required
 (by dropping brackets "<code>[ ]</code>")</p>
 
 <h3>[-]</h3>
@@ -275,8 +276,8 @@ If you want to follow this convention add "<code>[-]</code>" to your pattern.
 <h2>Option descriptions</h2>
 
 <p>Option descriptions consist of a list of options that you put below your
-ussage-patterns.  It is optional to specify them if there is no ambiguity
-in usage-patterns (described in <a href="#"><code>--option</code> section</a>).</p>
+ussage patterns.  It is optional to specify them if there is no ambiguity
+in usage patterns (described in <code>--option</code> section above).</p>
 
 <p>Option's description allows to specify:</p>
 
@@ -318,7 +319,7 @@ lines are valid, however you are recommended to stick to a single style.</p>
 </code></pre>
 
 <p>If you want to set a default value for an option with an argument, put it
-into the option-description, in form <code>[default: &lt;my-default-value&gt;]</code>.</p>
+into the option's description, in form <code>[default: &lt;the-default-value&gt;]</code>.</p>
 
 <pre><code>--coefficient=K  The K coefficient [default: 2.95]
 --output=FILE    Output file [default: test.txt]
@@ -327,15 +328,24 @@ into the option-description, in form <code>[default: &lt;my-default-value&gt;]</
 
 <h2>Implementations</h2>
 
-<p><code>docopt</code>-based command-line arguments parsers are developed on
-<a href="https://github.com/docopt">github</a>:</p>
+<p><code>docopt</code>-based command-line arguments parsers:</p>
 
 <ul>
-<li>Python (reference) implementation.</li>
-<li>Ruby implementation.</li>
-<li>CoffeeScript/JavaScript implementation.</li>
-<li>Lua implementation.</li>
+<li><a href="http://github.com/docopt/docopt">Python (reference) implementation</a>
+(by Vladimir Keleshev).</li>
+<li><a href="http://github.com/docopt/docopt.coffee">CoffeeScript/JavaScript
+implementation</a> (by Andrew Kassen).</li>
 </ul>
+
+<p>The following ports are on their way:</p>
+
+<ul>
+<li><a href="http://github.com/docopt/docopt.rb">Ruby implementation</a> (by Alex Speller).</li>
+<li><a href="http://github.com/docopt/docopt.lua">Lua implementation</a> (by James Graves).</li>
+</ul>
+
+<p>You are very welcome to help porting <code>docopt</code> to Ruby, Lua and <em>[your favorite
+language]</em>.</p>
 
 <p><br></p>
 

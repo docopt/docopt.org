@@ -5,4 +5,5 @@ template = open('./template.html').read()#.decode('utf8')
 index = open('./index.md').read()#.decode('utf8')
 output = open('./index.html', 'w')
 
-output.write(template.replace('{body}', markdown(index)))
+html = markdown(index, extras=[])
+output.write(template.replace('{body}', html))

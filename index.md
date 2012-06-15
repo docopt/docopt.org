@@ -7,9 +7,9 @@ Command-line interface description language
  - define interface for your command-line app, and
  - automatically generate parser for it.
 
-`docopt` is based on conventions that are used for decades in help-messages and
-man-pages for program interface description.  Interface description
-in `docopt` *is* such a help-message, but formalized.  Here is an example:
+`docopt` is based on conventions that are used for decades in help messages and
+man pages for program interface description.  Interface description
+in `docopt` *is* such a help message, but formalized.  Here is an example:
 
     Naval Fate.
 
@@ -46,7 +46,7 @@ default value (`[default: 10]`).
 
 `docopt` implementation will extract all that information and generate a
 command-line arguments parser, with text of the example above being the
-help-message, which is shown to a user when the program is invoked with
+help message, which is shown to a user when the program is invoked with
 `-h` or `--help` options.
 
 Usage patterns
@@ -69,8 +69,8 @@ describe the pattern:
       the_program (--either-that-option | <or-this-argument>)
       the_program <repeating-argument> <repeating-argument>...
 
-Each of the elements and syntactic constructs is described below.
-There, the word "*word*" describes a sequence of characters delimited
+Each of the elements and constructs is described below.
+We will use the word "*word*" to describe a sequence of characters delimited
 by either whitespace, one of "`[]()|`" characters, or "`...`".
 
 ### &lt;argument> ARGUMENT
@@ -96,8 +96,9 @@ respectively.
 Note, writing `--input ARG` (opposed to `--input=ARG`) is ambiguous, meaning
 it is not possibe to tell whether `ARG` is option's argument or positional
 argument.  In usage patterns this will be interpreted as option with argument
-*only* if [option's description](#) for that option is provided.  Otherwise
-it will be interpreted as separate option and positional argument.
+*only* if option's description (covered below) for that option is
+provided.  Otherwise it will be interpreted as separate option and
+positional argument.
 
 Same ambiguity is with `-f FILE` and `-fFILE` notation. Although in the latter
 case it is not possible to tell whether it is a number of stacked short
@@ -107,8 +108,8 @@ option with argument *only* if option's description is provided.
 
 ### command
 
-All other words (that do *not* follow the above conventions of `--options` or
-`<arguments>`) are interpreted as (sub)commands.
+All other words that do *not* follow the above conventions of `--options` or
+`<arguments>` are interpreted as (sub)commands.
 
 ### [optional elements]
 
@@ -128,7 +129,7 @@ is equivalent to:
 However, sometimes it is necessary to mark elements as required explicitly
 with parens "`( )`".
 For example, when you need to group mutually-exclussive elements (see next
-section for details on them):
+section):
 
     Usage: the_program (--either-this <and-that> | <or-this>)
 
@@ -164,7 +165,7 @@ is equivalent to:
 ### element...
 
 Use ellipsis "`...`" to specify that argument (or group of arguments)
-to the left could be repeated 1 or more times:
+to the left could be repeated one or more times:
 
     Usage: the_program open <file>...
            the_program move (<from> <to>)...
@@ -226,7 +227,7 @@ convention, add "`[--]`" into your patterns before positional arguments.
     Usage: the_program [options] [--] <file>...
 
 Apart from this special meaning, "`--`" is just a normal command, so you can
-apply any previously-described operations, for example make it required
+apply any previously-described operations, for example, make it required
 (by dropping brackets "`[ ]`")
 
 ### [-]
@@ -240,8 +241,8 @@ Option descriptions
 -------------------------------------------------------------------------------
 
 Option descriptions consist of a list of options that you put below your
-ussage-patterns.  It is optional to specify them if there is no ambiguity
-in usage-patterns (described in [`--option` section](#)).
+ussage patterns.  It is optional to specify them if there is no ambiguity
+in usage patterns (described in `--option` section above).
 
 Option's description allows to specify:
 
@@ -278,7 +279,7 @@ Use two spaces to separate options with their informal description.
     --stdout  Use stdout.   # GOOD, 2 spaces
 
 If you want to set a default value for an option with an argument, put it
-into the option-description, in form `[default: <the-default-value>]`.
+into the option's description, in form `[default: <the-default-value>]`.
 
     --coefficient=K  The K coefficient [default: 2.95]
     --output=FILE    Output file [default: test.txt]
@@ -288,12 +289,19 @@ into the option-description, in form `[default: <the-default-value>]`.
 Implementations
 -------------------------------------------------------------------------------
 
-`docopt`-based command-line arguments parsers are developed on
-[github](https://github.com/docopt):
+`docopt`-based command-line arguments parsers:
 
-- Python (reference) implementation.
-- Ruby implementation.
-- CoffeeScript/JavaScript implementation.
-- Lua implementation.
+- [Python (reference) implementation](http://github.com/docopt/docopt)
+  (by Vladimir Keleshev).
+- [CoffeeScript/JavaScript
+   implementation](http://github.com/docopt/docopt.coffee) (by Andrew Kassen).
+
+The following ports are on their way:
+
+- [Ruby implementation](http://github.com/docopt/docopt.rb) (by Alex Speller).
+- [Lua implementation](http://github.com/docopt/docopt.lua) (by James Graves).
+
+You are very welcome to help porting `docopt` to Ruby, Lua and *[your favorite
+language]*.
 
 <br>
