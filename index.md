@@ -295,6 +295,7 @@ Implementations
   (by Vladimir Keleshev).
 - [CoffeeScript/JavaScript
    implementation](http://github.com/docopt/docopt.coffee) (by Andrew Kassen).
+- [PHP implementation](http://github.com/docopt/docopt.php) (by Blake Williams).
 
 The following ports are on their way:
 
