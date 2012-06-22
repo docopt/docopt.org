@@ -150,7 +150,7 @@ in same or different brackets, for example:</p>
 <p><em>All elements are required by default</em>, if not included in brackets "<code>[ ]</code>".
 However, sometimes it is necessary to mark elements as required explicitly
 with parens "<code>( )</code>".
-For example, when you need to group mutually-exclussive elements (see next
+For example, when you need to group mutually-exclusive elements (see next
 section):</p>
 
 <pre><code>Usage: the_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
@@ -172,9 +172,9 @@ or with 2 arguments.</p>
 <pre><code>Usage: the_program go (--up | --down | --left | --right)
 </code></pre>
 
-<p>Use parens "<code>( )</code>" to group elements when <em>one</em> of the mutually exclussive
+<p>Use parens "<code>( )</code>" to group elements when <em>one</em> of the mutually exclusive
 cases is required.  Use brackets "<code>[ ]</code>" to group elements when <em>none</em> of the
-mutually exclussive cases is required:</p>
+mutually exclusive cases is required:</p>
 
 <pre><code>Usage: the_program go [--up | --down | --left | --right]
 </code></pre>
@@ -238,7 +238,7 @@ Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 --human-readable  Display in human-readable format.
 </code></pre>
 
-<p>This can be usefull, if you have many options, and all of them are applicable
+<p>This can be useful, if you have many options, and all of them are applicable
 to one of patterns. Alternatively, if you have both short and long
 versions of options (specified in option description part),
 you can list either of them in a pattern:</p>
