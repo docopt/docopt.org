@@ -285,6 +285,9 @@ into the option's description, in form `[default: <the-default-value>]`.
     --output=FILE    Output file [default: test.txt]
     --directory=DIR  Some directory [default: ./]
 
+[Try `docopt` in your browser](http://try.docopt.org)
+-------------------------------------------------------------------------------
+
 
 Implementations
 -------------------------------------------------------------------------------
