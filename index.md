@@ -57,17 +57,17 @@ empty line is interpreted as list of usage patterns.  First word after
 `usage:` is interpreted as program's name.  Here is a minimum example for
 program that takes no command-line arguments:
 
-    Usage: the_program
+    Usage: my_program
 
 Program can have several patterns listed with various elements used to
 describe the pattern:
 
     Usage:
-      the_program command --option <argument>
-      the_program [<optional-argument>]
-      the_program --another-option=<with-argument>
-      the_program (--either-that-option | <or-this-argument>)
-      the_program <repeating-argument> <repeating-argument>...
+      my_program command --option <argument>
+      my_program [<optional-argument>]
+      my_program --another-option=<with-argument>
+      my_program (--either-that-option | <or-this-argument>)
+      my_program <repeating-argument> <repeating-argument>...
 
 Each of the elements and constructs is described below.
 We will use the word "*word*" to describe a sequence of characters delimited
@@ -78,7 +78,7 @@ by either whitespace, one of "`[]()|`" characters, or "`...`".
 Words starting with "`<`", ending with "`>`" or upper-case words are
 interpreted as positional arguments.
 
-    Usage: the_program <host> <port>
+    Usage: my_program <host> <port>
 
 ### -o --option
 
@@ -117,11 +117,11 @@ Elements (options, arguments, commands) enclosed with square brackets "`[ ]`"
 are marked to be *optional*.  It does not matter if elements are enclosed
 in same or different brackets, for example:
 
-    Usage: the_program [command --option <argument>]
+    Usage: my_program [command --option <argument>]
 
 is equivalent to:
 
-    Usage: the_program [command] [--option] [<argument>]
+    Usage: my_program [command] [--option] [<argument>]
 
 ### (required elements)
 
@@ -131,12 +131,12 @@ with parens "`( )`".
 For example, when you need to group mutually-exclusive elements (see next
 section):
 
-    Usage: the_program (--either-this <and-that> | <or-this>)
+    Usage: my_program (--either-this <and-that> | <or-this>)
 
 Another use-case, is when you need to specify that *if one element is present,
 then another one is required*, which you can achieve as:
 
-    Usage: the_program [(<one-argument> <another-argument>)]
+    Usage: my_program [(<one-argument> <another-argument>)]
 
 In this case, a valid program invocation could be with either no arguments,
 or with 2 arguments.
@@ -145,52 +145,52 @@ or with 2 arguments.
 
 Mutually exclusive elements can be separated with pipe "`|`" as follows:
 
-    Usage: the_program go (--up | --down | --left | --right)
+    Usage: my_program go (--up | --down | --left | --right)
 
 Use parens "`( )`" to group elements when *one* of the mutually exclusive
 cases is required.  Use brackets "`[ ]`" to group elements when *none* of the
 mutually exclusive cases is required:
 
-    Usage: the_program go [--up | --down | --left | --right]
+    Usage: my_program go [--up | --down | --left | --right]
 
 Note, that specifying several patterns works exactly like pipe "`|`", that is:
 
-    Usage: the_program run [--fast]
-           the_program jump [--high]
+    Usage: my_program run [--fast]
+           my_program jump [--high]
 
 is equivalent to:
 
-    Usage: the_program (run [--fast] | jump [--high])
+    Usage: my_program (run [--fast] | jump [--high])
 
 ### element...
 
 Use ellipsis "`...`" to specify that argument (or group of arguments)
 to the left could be repeated one or more times:
 
-    Usage: the_program open <file>...
-           the_program move (<from> <to>)...
+    Usage: my_program open <file>...
+           my_program move (<from> <to>)...
 
 You can flexibly specify number of arguments that are required.
 Here are 3 (redundant) ways of requiring zero or more arguments:
 
-    Usage: the_program [<file>...]
-           the_program [<file>]...
-           the_program [<file> [<file> ...]]
+    Usage: my_program [<file>...]
+           my_program [<file>]...
+           my_program [<file> [<file> ...]]
 
 One or more arguments:
 
-    Usage: the_program <file>...
+    Usage: my_program <file>...
 
 Two or more arguments (and so on):
 
-    Usage: the_program <file> <file>...
+    Usage: my_program <file> <file>...
 
 ### [options]
 
 "`[options]`" is a shortcut that allows to avoid listing all options
 (from list of options with descriptions) in a pattern.  For example:
 
-    Usage: the_program [options] <path>
+    Usage: my_program [options] <path>
 
     --all             List everything.
     --long            Long output.
@@ -198,7 +198,7 @@ Two or more arguments (and so on):
 
 is equivalent to:
 
-    Usage: the_program [--all --long --human-readable] <path>
+    Usage: my_program [--all --long --human-readable] <path>
 
     --all             List everything.
     --long            Long output.
@@ -209,7 +209,7 @@ to one of patterns. Alternatively, if you have both short and long
 versions of options (specified in option description part),
 you can list either of them in a pattern:
 
-    Usage: the_program [-alh] <path>
+    Usage: my_program [-alh] <path>
 
     -a, --all             List everything.
     -l, --long            Long output.
@@ -224,7 +224,7 @@ to separate options and positional arguments, in order to handle cases when
 e.g. file names could be mistaken for options.  In order to support this
 convention, add "`[--]`" into your patterns before positional arguments.
 
-    Usage: the_program [options] [--] <file>...
+    Usage: my_program [options] [--] <file>...
 
 Apart from this special meaning, "`--`" is just a normal command, so you can
 apply any previously-described operations, for example, make it required
