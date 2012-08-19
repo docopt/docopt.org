@@ -128,7 +128,7 @@ is equivalent to:
 *All elements are required by default*, if not included in brackets "`[ ]`".
 However, sometimes it is necessary to mark elements as required explicitly
 with parens "`( )`".
-For example, when you need to group mutually-exclussive elements (see next
+For example, when you need to group mutually-exclusive elements (see next
 section):
 
     Usage: the_program (--either-this <and-that> | <or-this>)
@@ -147,9 +147,9 @@ Mutually exclusive elements can be separated with pipe "`|`" as follows:
 
     Usage: the_program go (--up | --down | --left | --right)
 
-Use parens "`( )`" to group elements when *one* of the mutually exclussive
+Use parens "`( )`" to group elements when *one* of the mutually exclusive
 cases is required.  Use brackets "`[ ]`" to group elements when *none* of the
-mutually exclussive cases is required:
+mutually exclusive cases is required:
 
     Usage: the_program go [--up | --down | --left | --right]
 
@@ -204,7 +204,7 @@ is equivalent to:
     --long            Long output.
     --human-readable  Display in human-readable format.
 
-This can be usefull, if you have many options, and all of them are applicable
+This can be useful, if you have many options, and all of them are applicable
 to one of patterns. Alternatively, if you have both short and long
 versions of options (specified in option description part),
 you can list either of them in a pattern:
