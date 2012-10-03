@@ -74,18 +74,18 @@ empty line is interpreted as list of usage patterns.  First word after
 <code>usage:</code> is interpreted as program's name.  Here is a minimum example for
 program that takes no command-line arguments:</p>
 
-<pre><code>Usage: the_program
+<pre><code>Usage: my_program
 </code></pre>
 
 <p>Program can have several patterns listed with various elements used to
 describe the pattern:</p>
 
 <pre><code>Usage:
-  the_program command --option &lt;argument&gt;
-  the_program [&lt;optional-argument&gt;]
-  the_program --another-option=&lt;with-argument&gt;
-  the_program (--either-that-option | &lt;or-this-argument&gt;)
-  the_program &lt;repeating-argument&gt; &lt;repeating-argument&gt;...
+  my_program command --option &lt;argument&gt;
+  my_program [&lt;optional-argument&gt;]
+  my_program --another-option=&lt;with-argument&gt;
+  my_program (--either-that-option | &lt;or-this-argument&gt;)
+  my_program &lt;repeating-argument&gt; &lt;repeating-argument&gt;...
 </code></pre>
 
 <p>Each of the elements and constructs is described below.
@@ -97,7 +97,7 @@ by either whitespace, one of "<code>[]()|</code>" characters, or "<code>...</cod
 <p>Words starting with "<code>&lt;</code>", ending with "<code>&gt;</code>" or upper-case words are
 interpreted as positional arguments.</p>
 
-<pre><code>Usage: the_program &lt;host&gt; &lt;port&gt;
+<pre><code>Usage: my_program &lt;host&gt; &lt;port&gt;
 </code></pre>
 
 <h3>-o --option</h3>
@@ -138,12 +138,12 @@ option with argument <em>only</em> if option's description is provided.</p>
 are marked to be <em>optional</em>.  It does not matter if elements are enclosed
 in same or different brackets, for example:</p>
 
-<pre><code>Usage: the_program [command --option &lt;argument&gt;]
+<pre><code>Usage: my_program [command --option &lt;argument&gt;]
 </code></pre>
 
 <p>is equivalent to:</p>
 
-<pre><code>Usage: the_program [command] [--option] [&lt;argument&gt;]
+<pre><code>Usage: my_program [command] [--option] [&lt;argument&gt;]
 </code></pre>
 
 <h3>(required elements)</h3>
@@ -154,13 +154,13 @@ with parens "<code>( )</code>".
 For example, when you need to group mutually-exclusive elements (see next
 section):</p>
 
-<pre><code>Usage: the_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
+<pre><code>Usage: my_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
 </code></pre>
 
 <p>Another use-case, is when you need to specify that <em>if one element is present,
 then another one is required</em>, which you can achieve as:</p>
 
-<pre><code>Usage: the_program [(&lt;one-argument&gt; &lt;another-argument&gt;)]
+<pre><code>Usage: my_program [(&lt;one-argument&gt; &lt;another-argument&gt;)]
 </code></pre>
 
 <p>In this case, a valid program invocation could be with either no arguments,
@@ -170,25 +170,25 @@ or with 2 arguments.</p>
 
 <p>Mutually exclusive elements can be separated with pipe "<code>|</code>" as follows:</p>
 
-<pre><code>Usage: the_program go (--up | --down | --left | --right)
+<pre><code>Usage: my_program go (--up | --down | --left | --right)
 </code></pre>
 
 <p>Use parens "<code>( )</code>" to group elements when <em>one</em> of the mutually exclusive
 cases is required.  Use brackets "<code>[ ]</code>" to group elements when <em>none</em> of the
 mutually exclusive cases is required:</p>
 
-<pre><code>Usage: the_program go [--up | --down | --left | --right]
+<pre><code>Usage: my_program go [--up | --down | --left | --right]
 </code></pre>
 
 <p>Note, that specifying several patterns works exactly like pipe "<code>|</code>", that is:</p>
 
-<pre><code>Usage: the_program run [--fast]
-       the_program jump [--high]
+<pre><code>Usage: my_program run [--fast]
+       my_program jump [--high]
 </code></pre>
 
 <p>is equivalent to:</p>
 
-<pre><code>Usage: the_program (run [--fast] | jump [--high])
+<pre><code>Usage: my_program (run [--fast] | jump [--high])
 </code></pre>
 
 <h3>element...</h3>
@@ -196,26 +196,26 @@ mutually exclusive cases is required:</p>
 <p>Use ellipsis "<code>...</code>" to specify that argument (or group of arguments)
 to the left could be repeated one or more times:</p>
 
-<pre><code>Usage: the_program open &lt;file&gt;...
-       the_program move (&lt;from&gt; &lt;to&gt;)...
+<pre><code>Usage: my_program open &lt;file&gt;...
+       my_program move (&lt;from&gt; &lt;to&gt;)...
 </code></pre>
 
 <p>You can flexibly specify number of arguments that are required.
 Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 
-<pre><code>Usage: the_program [&lt;file&gt;...]
-       the_program [&lt;file&gt;]...
-       the_program [&lt;file&gt; [&lt;file&gt; ...]]
+<pre><code>Usage: my_program [&lt;file&gt;...]
+       my_program [&lt;file&gt;]...
+       my_program [&lt;file&gt; [&lt;file&gt; ...]]
 </code></pre>
 
 <p>One or more arguments:</p>
 
-<pre><code>Usage: the_program &lt;file&gt;...
+<pre><code>Usage: my_program &lt;file&gt;...
 </code></pre>
 
 <p>Two or more arguments (and so on):</p>
 
-<pre><code>Usage: the_program &lt;file&gt; &lt;file&gt;...
+<pre><code>Usage: my_program &lt;file&gt; &lt;file&gt;...
 </code></pre>
 
 <h3>[options]</h3>
@@ -223,7 +223,7 @@ Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 <p>"<code>[options]</code>" is a shortcut that allows to avoid listing all options
 (from list of options with descriptions) in a pattern.  For example:</p>
 
-<pre><code>Usage: the_program [options] &lt;path&gt;
+<pre><code>Usage: my_program [options] &lt;path&gt;
 
 --all             List everything.
 --long            Long output.
@@ -232,7 +232,7 @@ Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 
 <p>is equivalent to:</p>
 
-<pre><code>Usage: the_program [--all --long --human-readable] &lt;path&gt;
+<pre><code>Usage: my_program [--all --long --human-readable] &lt;path&gt;
 
 --all             List everything.
 --long            Long output.
@@ -244,7 +244,7 @@ to one of patterns. Alternatively, if you have both short and long
 versions of options (specified in option description part),
 you can list either of them in a pattern:</p>
 
-<pre><code>Usage: the_program [-alh] &lt;path&gt;
+<pre><code>Usage: my_program [-alh] &lt;path&gt;
 
 -a, --all             List everything.
 -l, --long            Long output.
@@ -260,7 +260,7 @@ to separate options and positional arguments, in order to handle cases when
 e.g. file names could be mistaken for options.  In order to support this
 convention, add "<code>[--]</code>" into your patterns before positional arguments.</p>
 
-<pre><code>Usage: the_program [options] [--] &lt;file&gt;...
+<pre><code>Usage: my_program [options] [--] &lt;file&gt;...
 </code></pre>
 
 <p>Apart from this special meaning, "<code>--</code>" is just a normal command, so you can
@@ -334,22 +334,18 @@ into the option's description, in form <code>[default: &lt;the-default-value&gt;
 <p><code>docopt</code>-based command-line arguments parsers:</p>
 
 <ul>
-<li><a href="http://github.com/docopt/docopt">Python (reference) implementation</a>
-(by Vladimir Keleshev).</li>
-<li><a href="http://github.com/docopt/docopt.coffee">CoffeeScript/JavaScript
-implementation</a> (by Andrew Kassen).</li>
-<li><a href="http://github.com/docopt/docopt.php">PHP implementation</a> (by Blake Williams).</li>
+<li><a href="http://github.com/docopt/docopt">Python (reference implementation)</a></li>
+<li><a href="http://github.com/docopt/docopt.rb">Ruby</a></li>
+<li><a href="http://github.com/docopt/docopt.coffee">CoffeeScript/JavaScript</a></li>
+<li><a href="http://github.com/docopt/docopt.php">PHP</a></li>
 </ul>
 
 <p>The following ports are on their way:</p>
 
 <ul>
-<li><a href="http://github.com/docopt/docopt.rb">Ruby implementation</a> (by Alex Speller).</li>
-<li><a href="http://github.com/docopt/docopt.lua">Lua implementation</a> (by James Graves).</li>
+<li><a href="http://github.com/docopt/docopt.lua">Lua</a></li>
+<li><a href="http://github.com/docopt/docopt.c">C code generator</a></li>
 </ul>
-
-<p>You are very welcome to help porting <code>docopt</code> to Ruby, Lua and <em>[your favorite
-language]</em>.</p>
 
 <p><br></p>
 

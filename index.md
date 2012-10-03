@@ -294,18 +294,14 @@ Implementations
 
 `docopt`-based command-line arguments parsers:
 
-- [Python (reference) implementation](http://github.com/docopt/docopt)
-  (by Vladimir Keleshev).
-- [CoffeeScript/JavaScript
-   implementation](http://github.com/docopt/docopt.coffee) (by Andrew Kassen).
-- [PHP implementation](http://github.com/docopt/docopt.php) (by Blake Williams).
+- [Python (reference implementation)](http://github.com/docopt/docopt)
+- [Ruby](http://github.com/docopt/docopt.rb)
+- [CoffeeScript/JavaScript](http://github.com/docopt/docopt.coffee)
+- [PHP](http://github.com/docopt/docopt.php)
 
 The following ports are on their way:
 
-- [Ruby implementation](http://github.com/docopt/docopt.rb) (by Alex Speller).
-- [Lua implementation](http://github.com/docopt/docopt.lua) (by James Graves).
-
-You are very welcome to help porting `docopt` to Ruby, Lua and *[your favorite
-language]*.
+- [Lua](http://github.com/docopt/docopt.lua)
+- [C code generator](http://github.com/docopt/docopt.c)
 
 <br>
