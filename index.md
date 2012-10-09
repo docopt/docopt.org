@@ -1,4 +1,3 @@
-
 Command-line interface description language
 -------------------------------------------------------------------------------
 
@@ -298,6 +297,7 @@ Implementations
 - [Ruby](http://github.com/docopt/docopt.rb)
 - [CoffeeScript/JavaScript](http://github.com/docopt/docopt.coffee)
 - [PHP](http://github.com/docopt/docopt.php)
+- [Bash (shell interface for the reference implementation)](http://github.com/docopt/docopts)
 
 The following ports are on their way:
 
