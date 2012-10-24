@@ -266,7 +266,7 @@ You can use comma if you want to separate options. In the example below, both
 lines are valid, however you are recommended to stick to a single style.
 
     -o FILE --output=FILE       # without comma, with "=" sign
-    -i <file>, --input <file>   # with comma, wihtout "=" sing
+    -i <file>, --input <file>   # with comma, without "=" sign
 
 Use two spaces to separate options with their informal description.
 
