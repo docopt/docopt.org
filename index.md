@@ -1,6 +1,10 @@
 Command-line interface description language
 -------------------------------------------------------------------------------
 
+<iframe width="800" height="450"
+src="http://www.youtube.com/embed/pXhcPJK5cMc?rel=0"
+frameborder="0" allowfullscreen></iframe>
+
 `docopt` helps you:
 
  - define interface for your command-line app, and
