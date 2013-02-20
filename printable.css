@@ -1,0 +1,88 @@
+body {
+    /*width: 800px;*/
+    /*margin: 0px auto;*/
+    /*color: #3E4349;*/
+    color: black;
+    font: 10pt Georgia, serif;
+    line-height: 140%;
+}
+
+pre {
+    font: 9pt Courier, monospace;
+    color: black;
+    border-color: #3E4349;
+    border-style: solid;
+    border-width: 1px;
+    padding: 3pt;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+pre code {
+    font-weight: normal;
+}
+code {
+    white-space: pre;
+    font-weight: bold;
+}
+p {
+    !line-height: 140%;
+}
+
+h1 {
+    font: 18pt Courier, monospace;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+}
+h2 {
+    font: 14pt Georgia, serif;
+    font-style: italic;
+    text-align: left;
+    counter-increment: section;
+}
+h2:before {
+   content: counter(section) ". ";
+}
+h3 {
+    font: 12pt monospace;
+    text-align: left;
+    color: black;
+    counter-increment: subsection;
+}
+h3:before {
+   content: counter(section) "." counter(subsection) ". ";
+}
+
+img { /*disable Fork at Github stamp*/
+    display: none;
+    visibility: hidden;
+}
+iframe { /*disable youtube video*/
+    display: none;
+    visibility: hidden;
+}
+div { /*disable links in the bottom of the page*/
+    display: none;
+    visibility: hidden;
+}
+a { /*disable all links*/
+    display: none;
+    visibility: hidden;
+}
+
+.dashdash:before { content: "--"; }
+.dashdash:after { content: "--"; color: white; }
+
+.ellipsis:before { content: "..."; color: white; }
+.ellipsis:after { content: "..."; }
+
+.brackets:before { content: "["; }
+.brackets:after { content: "]"; }
+
+.angular:before { content: "<"; }
+.angular:after { content: ">"; }
+
+.parens:before { content: "("; }
+.parens:after { content: ")"; }
+
+.upper { text-transform: uppercase; }
