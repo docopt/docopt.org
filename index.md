@@ -97,7 +97,7 @@ respectively.
   `-f FILE` is equivalent to `-fFILE`.
 
 Note, writing `--input ARG` (opposed to `--input=ARG`) is ambiguous, meaning
-it is not possibe to tell whether `ARG` is option's argument or positional
+it is not possible to tell whether `ARG` is option's argument or positional
 argument.  In usage patterns this will be interpreted as option with argument
 *only* if option's description (covered below) for that option is
 provided.  Otherwise it will be interpreted as separate option and
