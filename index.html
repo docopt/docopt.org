@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>docopt—language for description of command-line interfaces</title>
-    <link rel="stylesheet" href="normalize.css" media="screen">
-    <link rel="stylesheet" href="style.css" media="screen">
-    <link rel="stylesheet" href="printable.css" media="print">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <a href="https://github.com/docopt/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -121,7 +120,7 @@ respectively.</p>
 </ul>
 
 <p>Note, writing <code>--input ARG</code> (opposed to <code>--input=ARG</code>) is ambiguous, meaning
-it is not possibe to tell whether <code>ARG</code> is option's argument or positional
+it is not possible to tell whether <code>ARG</code> is option's argument or positional
 argument.  In usage patterns this will be interpreted as option with argument
 <em>only</em> if option's description (covered below) for that option is
 provided.  Otherwise it will be interpreted as separate option and
@@ -332,7 +331,6 @@ into the option's description, in form <code>[default: &lt;the-default-value&gt;
 --directory=DIR  Some directory [default: ./]
 </code></pre>
 
-<div>
 <h2><a href="http://try.docopt.org">Try <code>docopt</code> in your browser</a></h2>
 
 <h2>Implementations</h2>
@@ -345,6 +343,7 @@ into the option's description, in form <code>[default: &lt;the-default-value&gt;
 <li><a href="http://github.com/docopt/docopt.coffee">CoffeeScript/JavaScript</a></li>
 <li><a href="http://github.com/docopt/docopt.php">PHP</a></li>
 <li><a href="http://github.com/docopt/docopts">Bash (shell interface for the reference implementation)</a></li>
+<li><a href="https://github.com/docopt/docopt.net">C#/.Net</a> (also via nuget package <a href="http://www.nuget.org/packages/docopt.net/">docopt.net</a>)</li>
 </ul>
 
 <p>The following ports are on their way:</p>
@@ -353,7 +352,6 @@ into the option's description, in form <code>[default: &lt;the-default-value&gt;
 <li><a href="http://github.com/docopt/docopt.lua">Lua</a></li>
 <li><a href="http://github.com/docopt/docopt.c">C code generator</a></li>
 </ul>
-</div>
 
 <p><br></p>
 
