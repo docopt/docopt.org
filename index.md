@@ -303,7 +303,7 @@ Implementations
 - [PHP](http://github.com/docopt/docopt.php)
 - [Bash (shell interface for the reference implementation)](http://github.com/docopt/docopts)
 - [C#/.Net](https://github.com/docopt/docopt.net) (also via nuget package [docopt.net](http://www.nuget.org/packages/docopt.net/))
-- [Go](https://github.com/docopt/docopt.go) (`import "github.com/docopt/docopt.go`)
+- [Go](https://github.com/docopt/docopt.go) (`import "github.com/docopt/docopt.go"`)
 
 The following ports are on their way:
 
