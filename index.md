@@ -244,7 +244,7 @@ Option descriptions
 -------------------------------------------------------------------------------
 
 Option descriptions consist of a list of options that you put below your
-ussage patterns.  It is optional to specify them if there is no ambiguity
+usage patterns.  It is optional to specify them if there is no ambiguity
 in usage patterns (described in `--option` section above).
 
 Option's description allows to specify:
