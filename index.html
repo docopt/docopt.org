@@ -25,12 +25,12 @@ frameborder="0" allowfullscreen></iframe>
 <p><code>docopt</code> helps you:</p>
 
 <ul>
-<li>define interface for your command-line app, and</li>
-<li>automatically generate parser for it.</li>
+<li>define the interface for your command-line app, and</li>
+<li>automatically generate a parser for it.</li>
 </ul>
 
-<p><code>docopt</code> is based on conventions that are used for decades in help messages and
-man pages for program interface description.  Interface description
+<p><code>docopt</code> is based on conventions that have been used for decades in help messages and
+man pages for describing a program's interface.  An interface description
 in <code>docopt</code> <em>is</em> such a help message, but formalized.  Here is an example:</p>
 
 <pre><code>Naval Fate.
@@ -51,12 +51,12 @@ Options:
   --drifting    Drifting mine.
 </code></pre>
 
-<p>The example describes interface of executable <code>naval_fate</code>, which can be
+<p>The example describes the interface of executable <code>naval_fate</code>, which can be
 invoked with different combinations of <em>commands</em> (<code>ship</code>, <code>new</code>, <code>move</code>,
 etc.), <em>options</em> (<code>-h</code>, <code>--help</code>, <code>--speed=&lt;kn&gt;</code>, etc.)  and positional
 arguments (<code>&lt;name&gt;</code>, <code>&lt;x&gt;</code>, <code>&lt;y&gt;</code>).</p>
 
-<p>Example uses brackets "<code>[ ]</code>", parens "<code>( )</code>", pipes "<code>|</code>" and ellipsis
+<p>The example uses brackets "<code>[ ]</code>", parens "<code>( )</code>", pipes "<code>|</code>" and ellipsis
 "<code>...</code>" to
 describe <em>optional</em>, <em>required</em>, <em>mutually exclusive</em>, and <em>repeating</em>
 elements.  Together, these elements form valid <em>usage patterns</em>, each starting
@@ -67,16 +67,16 @@ They describe whether an option has short/long forms (<code>-h</code>, <code>--h
 an option has an argument (<code>--speed=&lt;kn&gt;</code>), and whether that argument has a
 default value (<code>[default: 10]</code>).</p>
 
-<p><code>docopt</code> implementation will extract all that information and generate a
-command-line arguments parser, with text of the example above being the
-help message, which is shown to a user when the program is invoked with
-<code>-h</code> or <code>--help</code> options.</p>
+<p>A <code>docopt</code> implementation will extract all that information and generate a
+command-line arguments parser, with the text of the interface description as the
+help message shown when the program is invoked with
+the <code>-h</code> or <code>--help</code> options.</p>
 
 <h2>Usage patterns</h2>
 
 <p>Text occuring between keyword <code>usage:</code> (case-<em>in</em>sensitive) and a <em>visibly</em>
-empty line is interpreted as list of usage patterns.  First word after
-<code>usage:</code> is interpreted as program's name.  Here is a minimum example for
+empty line is interpreted as list of usage patterns.  The first word after
+<code>usage:</code> is interpreted as the program's name.  Here is a minimal example for
 program that takes no command-line arguments:</p>
 
 <pre><code>Usage: my_program
@@ -99,7 +99,7 @@ by either whitespace, one of "<code>[]()|</code>" characters, or "<code>...</cod
 
 <h3>&lt;argument> ARGUMENT</h3>
 
-<p>Words starting with "<code>&lt;</code>", ending with "<code>&gt;</code>" or upper-case words are
+<p>Words starting with "<code>&lt;</code>", ending with "<code>&gt;</code>" and upper-case words are
 interpreted as positional arguments.</p>
 
 <pre><code>Usage: my_program &lt;host&gt; &lt;port&gt;
@@ -120,17 +120,17 @@ respectively.</p>
 <code>-f FILE</code> is equivalent to <code>-fFILE</code>.</li>
 </ul>
 
-<p>Note, writing <code>--input ARG</code> (opposed to <code>--input=ARG</code>) is ambiguous, meaning
-it is not possible to tell whether <code>ARG</code> is option's argument or positional
-argument.  In usage patterns this will be interpreted as option with argument
-<em>only</em> if option's description (covered below) for that option is
-provided.  Otherwise it will be interpreted as separate option and
+<p>Note, writing <code>--input ARG</code> (as opposed to <code>--input=ARG</code>) is ambiguous, meaning
+it is not possible to tell whether <code>ARG</code> is option's argument or a positional
+argument.  In usage patterns this will be interpreted as an option with argument
+<em>only</em> if a description (covered below) for that option is
+provided.  Otherwise it will be interpreted as an option and separate
 positional argument.</p>
 
-<p>Same ambiguity is with <code>-f FILE</code> and <code>-fFILE</code> notation. Although in the latter
+<p>There is the same ambiguity with the <code>-f FILE</code> and <code>-fFILE</code> notation. In the latter
 case it is not possible to tell whether it is a number of stacked short
-options, or an option with argument.  These notations will be interpreted as
-option with argument <em>only</em> if option's description is provided.</p>
+options, or an option with an argument.  These notations will be interpreted as an
+option with argument <em>only</em> if a description for the option is provided.</p>
 
 <h3>command</h3>
 
@@ -141,7 +141,7 @@ option with argument <em>only</em> if option's description is provided.</p>
 
 <p>Elements (options, arguments, commands) enclosed with square brackets "<code>[ ]</code>"
 are marked to be <em>optional</em>.  It does not matter if elements are enclosed
-in same or different brackets, for example:</p>
+in the same or different pairs of brackets, for example:</p>
 
 <pre><code>Usage: my_program [command --option &lt;argument&gt;]
 </code></pre>
@@ -162,7 +162,7 @@ section):</p>
 <pre><code>Usage: my_program (--either-this &lt;and-that&gt; | &lt;or-this&gt;)
 </code></pre>
 
-<p>Another use-case, is when you need to specify that <em>if one element is present,
+<p>Another use case is when you need to specify that <em>if one element is present,
 then another one is required</em>, which you can achieve as:</p>
 
 <pre><code>Usage: my_program [(&lt;one-argument&gt; &lt;another-argument&gt;)]
@@ -173,7 +173,7 @@ or with 2 arguments.</p>
 
 <h3>element|another</h3>
 
-<p>Mutually exclusive elements can be separated with pipe "<code>|</code>" as follows:</p>
+<p>Mutually-exclusive elements can be separated with a pipe "<code>|</code>" as follows:</p>
 
 <pre><code>Usage: my_program go (--up | --down | --left | --right)
 </code></pre>
@@ -198,14 +198,14 @@ mutually exclusive cases is required:</p>
 
 <h3>element...</h3>
 
-<p>Use ellipsis "<code>...</code>" to specify that argument (or group of arguments)
+<p>Use ellipsis "<code>...</code>" to specify that the argument (or group of arguments)
 to the left could be repeated one or more times:</p>
 
 <pre><code>Usage: my_program open &lt;file&gt;...
        my_program move (&lt;from&gt; &lt;to&gt;)...
 </code></pre>
 
-<p>You can flexibly specify number of arguments that are required.
+<p>You can flexibly specify the number of arguments that are required.
 Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 
 <pre><code>Usage: my_program [&lt;file&gt;...]
@@ -244,7 +244,7 @@ Here are 3 (redundant) ways of requiring zero or more arguments:</p>
 --human-readable  Display in human-readable format.
 </code></pre>
 
-<p>This can be useful, if you have many options, and all of them are applicable
+<p>This can be useful if you have many options and all of them are applicable
 to one of patterns. Alternatively, if you have both short and long
 versions of options (specified in option description part),
 you can list either of them in a pattern:</p>
@@ -260,9 +260,9 @@ you can list either of them in a pattern:</p>
 
 <h3>[--]</h3>
 
-<p>Double dash "<code>--</code>", when not part of an option, is often used by convention
-to separate options and positional arguments, in order to handle cases when
-e.g. file names could be mistaken for options.  In order to support this
+<p>A double dash "<code>--</code>", when not part of an option, is often used as a convention
+to separate options and positional arguments, in order to handle cases when,
+e.g., file names could be mistaken for options.  In order to support this
 convention, add "<code>[--]</code>" into your patterns before positional arguments.</p>
 
 <pre><code>Usage: my_program [options] [--] &lt;file&gt;...
@@ -274,7 +274,7 @@ apply any previously-described operations, for example, make it required
 
 <h3>[-]</h3>
 
-<p>Single dash "<code>-</code>", when not part of an option, is often used by convention
+<p>A single dash "<code>-</code>", when not part of an option, is often used by convention
 to signify that a program should process <code>stdin</code>, as opposed to a file.
 If you want to follow this convention add "<code>[-]</code>" to your pattern.
 "<code>-</code>" by itself is just a normal command, which you can use with any meaning.</p>
@@ -283,14 +283,14 @@ If you want to follow this convention add "<code>[-]</code>" to your pattern.
 
 <p>Option descriptions consist of a list of options that you put below your
 usage patterns.  It is optional to specify them if there is no ambiguity
-in usage patterns (described in <code>--option</code> section above).</p>
+in usage patterns (described in the <code>--option</code> section above).</p>
 
-<p>Option's description allows to specify:</p>
+<p>An option's description allows to specify:</p>
 
 <ul>
-<li>that a short and a long options are synonymous,</li>
+<li>that some short and long options are synonymous,</li>
 <li>that an option has an argument,</li>
-<li>default value for option's argument.</li>
+<li>and the default value for an option's argument.</li>
 </ul>
 
 <p>The rules are as follows:</p>
@@ -304,11 +304,11 @@ is treated as an option description, e.g.:</p>
 Other: --bad  # BAD, line does not start with dash "-"
 </code></pre>
 
-<p>To specify that option has an argument, put a word describing that
-argument after space (or equals "<code>=</code>" sign) as shown below. Follow
+<p>To specify that an option has an argument, put a word describing that
+argument after a space (or equals "<code>=</code>" sign) as shown below. Follow
 either <code>&lt;angular-brackets&gt;</code> or <code>UPPER-CASE</code> convention for options' arguments.
-You can use comma if you want to separate options. In the example below, both
-lines are valid, however you are recommended to stick to a single style.</p>
+You can use a comma if you want to separate options. In the example below, both
+lines are valid, however it is recommended to stick to a single style.</p>
 
 <pre><code>-o FILE --output=FILE       # without comma, with "=" sign
 -i &lt;file&gt;, --input &lt;file&gt;   # with comma, without "=" sign
@@ -325,7 +325,7 @@ lines are valid, however you are recommended to stick to a single style.</p>
 </code></pre>
 
 <p>If you want to set a default value for an option with an argument, put it
-into the option's description, in form <code>[default: &lt;the-default-value&gt;]</code>.</p>
+into the option's description, in the form <code>[default: &lt;the-default-value&gt;]</code>.</p>
 
 <pre><code>--coefficient=K  The K coefficient [default: 2.95]
 --output=FILE    Output file [default: test.txt]
@@ -337,7 +337,7 @@ into the option's description, in form <code>[default: &lt;the-default-value&gt;
 <h2>Implementations</h2>
 
 <p><code>docopt</code> is available in numerous programming languages.
-Official implementations are listed at <a href="
+Official implementations are listed under the <a href="
 https://github.com/docopt">docopt organization on GitHub</a>.</p>
 
 <p><br></p>
